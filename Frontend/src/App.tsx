@@ -7,14 +7,13 @@ import { VoiceRecorder } from './components/VoiceRecorder';
 import { TextMoodInput } from './components/TextMoodInput';
 import { MoodAnalysis, MoodData } from './components/MoodAnalysis';
 import { PlaylistGenerator, Playlist } from './components/PlaylistGenerator';
-import { MoodSliders } from './components/MoodSliders';
 import { ShareModal } from './components/ShareModal';
 import { ThreeScene } from './components/ThreeScene';
 import { FeatureCard } from './components/FeatureCard';
 import { ThemeProvider } from './components/ThemeProvider';
 import { ThemeSwitcher } from './components/ThemeSwitcher';
 import { SimpleMusicIcon } from './components/SimpleMusicIcon';
-import { Music, Sparkles, Heart, Zap, Brain, Headphones, Share2, Mic, MessageSquare, Sliders, Bot, Waves, Globe, Volume2, Radio } from 'lucide-react';
+import { Music, Sparkles, Heart, Zap, Brain, Headphones, Share2, Mic, MessageSquare, Bot, Waves, Globe, Volume2, Radio } from 'lucide-react';
 
 type AppState = 'input' | 'analyzing' | 'results';
 
@@ -125,27 +124,6 @@ function AppContent() {
     }
   };
 
-  const handleSurpriseRemix = () => {
-    const surpriseMoods = ['happy', 'excited', 'calm', 'energetic', 'dreamy'];
-    const randomMood = surpriseMoods[Math.floor(Math.random() * surpriseMoods.length)];
-    
-    const surpriseMoodData: MoodData = {
-      primary: randomMood,
-      secondary: 'surprise',
-      confidence: 0.95,
-      emotions: [
-        { emotion: 'Surprise', intensity: 95 },
-        { emotion: 'Curiosity', intensity: 85 },
-        { emotion: 'Adventure', intensity: 90 },
-        { emotion: 'Fun', intensity: 88 }
-      ],
-      transcript: '🎲 Surprise remix activated! Random mood boost incoming...'
-    };
-
-    setMoodData(surpriseMoodData);
-    setAppState('results');
-  };
-
   const resetApp = () => {
     setAppState('input');
     setMoodData(null);
@@ -219,7 +197,7 @@ function AppContent() {
             </div>
             
             <p className="text-lg lg:text-xl text-white/80 max-w-4xl mx-auto mb-12 leading-relaxed">
-              Transform your emotional chaos into perfect sonic therapy. Our AI analyzes your voice, text, or mood patterns 
+              Transform your emotional chaos into perfect sonic therapy. Our AI analyzes your voice or text 
               to curate personalized playlists that match your exact emotional fingerprint. Experience music like never before.
             </p>
 
@@ -309,12 +287,12 @@ function AppContent() {
                   <FeatureCard
                     icon={<Mic className="w-6 h-6 text-[var(--theme-primary)]" />}
                     title="Capture Your Mood"
-                    description="Voice, text, or manual input"
+                    description="Voice or text input"
                     details={[
                       "10-second voice recordings with real-time analysis",
                       "Free-form text venting for emotional expression", 
-                      "Manual mood sliders for precise control",
-                      "Supports multiple languages and accents"
+                      "Supports multiple languages and accents",
+                      "Instant mood capture and processing"
                     ]}
                     className="bg-[var(--theme-primary)]/5 border-[var(--theme-primary)]/20"
                   />
@@ -376,7 +354,7 @@ function AppContent() {
               </div>
 
               <Tabs defaultValue="voice" className="w-full">
-                <TabsList className="grid w-full grid-cols-3 bg-[var(--theme-surface)]/80 border-[var(--theme-primary)]/20 backdrop-blur-sm">
+                <TabsList className="grid w-full grid-cols-2 bg-[var(--theme-surface)]/80 border-[var(--theme-primary)]/20 backdrop-blur-sm">
                   <TabsTrigger value="voice" className="data-[state=active]:bg-[var(--theme-primary)]/20 data-[state=active]:text-white">
                     <Mic className="w-4 h-4 mr-2" />
                     Voice
@@ -384,10 +362,6 @@ function AppContent() {
                   <TabsTrigger value="text" className="data-[state=active]:bg-[var(--theme-primary)]/20 data-[state=active]:text-white">
                     <MessageSquare className="w-4 h-4 mr-2" />
                     Text
-                  </TabsTrigger>
-                  <TabsTrigger value="manual" className="data-[state=active]:bg-[var(--theme-primary)]/20 data-[state=active]:text-white">
-                    <Sliders className="w-4 h-4 mr-2" />
-                    Manual
                   </TabsTrigger>
                 </TabsList>
                 
@@ -402,13 +376,6 @@ function AppContent() {
                   <TextMoodInput 
                     onTextSubmit={analyzeMood}
                     isAnalyzing={appState === 'analyzing'}
-                  />
-                </TabsContent>
-                
-                <TabsContent value="manual" className="space-y-4 mt-8">
-                  <MoodSliders 
-                    onMoodSet={analyzeMood}
-                    onSurpriseRemix={handleSurpriseRemix}
                   />
                 </TabsContent>
               </Tabs>
