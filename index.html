@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mood Tune AI</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-gradient-animated min-h-screen overflow-x-hidden">
+    <!-- Floating background elements -->
+    <div class="floating-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+        <div class="shape shape-4"></div>
+    </div>
+    
+    <div class="container mx-auto px-4 py-12 relative z-10">
+        <div class="max-w-4xl mx-auto">
+            <!-- Header with animation -->
+            <div class="text-center mb-12 header-animate">
+                <div class="inline-block mb-4">
+                    <div class="music-icon-container">
+                        <svg class="music-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
+                        </svg>
+                    </div>
+                </div>
+                <h1 class="text-5xl md:text-6xl font-bold text-white mb-4 title-gradient">Mood Tune AI</h1>
+                <p class="text-purple-200 text-xl font-light">Your AI-Powered Musical Companion</p>
+                <div class="flex justify-center gap-2 mt-4">
+                    <span class="feature-badge">🎵 Smart Detection</span>
+                    <span class="feature-badge">🎤 Voice Input</span>
+                    <span class="feature-badge">🌐 Bilingual</span>
+                </div>
+            </div>
+            
+            <div class="glass-card card-hover mb-8">
+                <div class="mb-8">
+                    <label class="block text-gray-800 font-semibold mb-4 flex items-center gap-2">
+                        <span class="text-2xl">🌐</span>
+                        <span>Select Language / भाषा चुनें</span>
+                    </label>
+                    <div class="flex gap-4">
+                        <button id="langEnglish" class="lang-btn lang-btn-active flex-1 py-3 px-6 rounded-xl font-semibold transition-all transform hover:scale-105">
+                            <span class="text-2xl mr-2">🇬🇧</span> English
+                        </button>
+                        <button id="langHindi" class="lang-btn flex-1 py-3 px-6 rounded-xl font-semibold transition-all transform hover:scale-105">
+                            <span class="text-2xl mr-2">🇮🇳</span> हिंदी
+                        </button>
+                    </div>
+                </div>
+                <div class="mb-8">
+                    <label for="moodInput" id="moodLabel" class="block text-gray-800 font-semibold mb-4 flex items-center gap-2">
+                        <span class="text-2xl">💭</span>
+                        <span>How are you feeling today?</span>
+                    </label>
+                    <div class="input-group">
+                        <input type="text" id="moodInput" 
+                               class="mood-input flex-1 px-6 py-4 rounded-l-2xl focus:outline-none focus:ring-2 focus:ring-purple-400"
+                               placeholder="Type how you're feeling or use the mic...">
+                        <button id="voiceBtn" class="voice-btn px-6 rounded-r-2xl transition-all">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />
+                            </svg>
+                        </button>
+                    </div>
+                    <p id="recordingStatus" class="recording-status text-sm font-medium mt-3 hidden">
+                        <span class="inline-block w-2 h-2 rounded-full bg-red-500 mr-2 pulse-dot"></span>
+                        Recording...
+                    </p>
+                </div>
+                
+                <div class="mb-8">
+                    <div class="flex items-center justify-between mb-4">
+                        <label id="moodSliderLabel" class="block text-gray-800 font-semibold flex items-center gap-2">
+                            <span class="text-2xl">🎚️</span>
+                            <span>Or use the Moodometer</span>
+                        </label>
+                        <span id="moodSliderValue" class="mood-badge">😊 Happy</span>
+                    </div>
+                    <div class="slider-container">
+                        <input type="range" id="moodSlider" min="0" max="5" value="2" step="1" 
+                               class="mood-slider">
+                    </div>
+                    <div class="flex justify-between text-2xl mt-4 px-2">
+                        <span class="mood-emoji">😢</span>
+                        <span class="mood-emoji">😠</span>
+                        <span class="mood-emoji">😊</span>
+                        <span class="mood-emoji">😌</span>
+                        <span class="mood-emoji">⚡</span>
+                        <span class="mood-emoji">💕</span>
+                    </div>
+                </div>
+                <button id="generateBtn" class="generate-btn">
+                    <span class="btn-text">Generate My Playlist</span>
+                    <span class="btn-icon">🎵</span>
+                </button>
+            </div>
+
+            <div id="loading" class="loading-container hidden">
+                <div class="glass-card text-center py-12">
+                    <div class="loader-wrapper mb-6">
+                        <div class="music-loader">
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                        </div>
+                    </div>
+                    <p class="text-white text-xl font-semibold">Analyzing your mood...</p>
+                    <p class="text-purple-200 mt-2">Creating the perfect playlist for you</p>
+                </div>
+            </div>
+
+            <div id="playlistContainer" class="playlist-container hidden">
+                <div class="glass-card mb-6">
+                    <div class="flex items-center justify-between flex-wrap gap-4">
+                        <div>
+                            <h2 class="text-3xl font-bold text-white mb-2 flex items-center gap-3">
+                                <span class="text-4xl">🎵</span>
+                                Your Mood Playlist
+                            </h2>
+                            <div id="moodDisplay" class="mood-display-inline">
+                                <span class="text-purple-200">Detected Mood:</span>
+                                <span id="moodText" class="mood-text-display">Happy</span>
+                            </div>
+                        </div>
+                        <button id="shareBtn" class="share-btn">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+                            </svg>
+                            <span>Share Playlist</span>
+                        </button>
+                    </div>
+                </div>
+                <div id="playlist" class="playlist-grid">
+                    <!-- Playlist items will be inserted here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
